@@ -1,40 +1,37 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Header from "./components/layout/Header";
-import OurStory from "./components/layout/OurStory";
-import Main from "./components/layout/Main";
-import HomePage from "./pages/HomePage";
-import Introduction from "./components/layout/Introduction";
-import IntroductionSearchPage from "./components/layout/IntroductionSearchPage";
-import PropertiesPage from "./pages/PropertiesPage";
-import PropertyDetailPage from "./pages/PropertyDetailPage";
+
 import { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import Home from "./components/pages/Home";
+import Properties from "./components/pages/Properties";
+import PropertyDetail from "./components/pages/PropertyDetail";
+import Header from "./components/organisms/Header/Header";
 
 function App() {
-  const [showMain, setShowMain] = useState(true);
+  const [showHeader, setShowHeader] = useState(true);
 
   return (
     <>
+      {showHeader ? <Header></Header> : null}
       <Routes>
-        <Route element={showMain ? <Main /> : null}>
-          <Route path="/" element={<HomePage></HomePage>}></Route>
-          <Route
-            path="/properties"
-            element={<PropertiesPage></PropertiesPage>}
-          ></Route>
-          <Route
-            path="/properties/:propertyId"
-            element={
-              <PropertyDetailPage
-                showMain={showMain}
-                setShowMain={setShowMain}
-              ></PropertyDetailPage>
-            }
-          ></Route>
-        </Route>
+        <Route path="/" element={<Home></Home>}></Route>
+        <Route path="/properties" element={<Properties></Properties>}></Route>
+        <Route
+          path="/properties/:propertyId"
+          element={
+            <PropertyDetail
+            // showHeader={showHeader}
+            // setShowHeader={setShowHeader}
+            ></PropertyDetail>
+          }
+        ></Route>
+        <Route path="/signup" element={<Home></Home>}></Route>
+        {/* <Route path="/login" element={<Login></Login>}></Route> */}
+
+        {/* protected Routes */}
       </Routes>
     </>
   );

@@ -6,7 +6,8 @@ import {
   faHouseChimney,
 } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import { propertyAPI } from "../../api/propertyAPI";
+import { propertyAPI } from "../../../../api/propertyAPI";
+
 const PropertyCard = ({ item }) => {
   const {
     districtPrefix,
@@ -32,7 +33,7 @@ const PropertyCard = ({ item }) => {
   };
   return (
     <div
-      className="flex flex-col rounded-lg p-3 bg-white text-secondary select-none h-full shadow-md hover:shadow-neutral-400 transition-all cursor-pointer"
+      className="flex flex-col lg:rounded-lg p-3 bg-white text-secondary select-none h-full shadow-md hover:shadow-neutral-400 transition-all cursor-pointer"
       onClick={handleClickNavigate}
     >
       <img
@@ -69,8 +70,7 @@ const PropertyCard = ({ item }) => {
             <span> {propertyBathrooms}</span>
             <span>
               <FontAwesomeIcon icon={faHouseChimney} className="mr-2" />
-              {propertyArea}
-              <sup>2</sup>
+              {propertyArea}m<sup>2</sup>
             </span>
           </div>
           <h3 className={`font-medium text-[#ADB8CC] text-sm`}>

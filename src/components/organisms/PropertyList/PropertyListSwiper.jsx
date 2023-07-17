@@ -1,6 +1,6 @@
 import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import PropertyCard from "./PropertyCard";
+import PropertyCard from "../../molecules/Property/PropertyCard/PropertyCard";
 
 const PropertyListSwiper = ({ item }) => {
   return (

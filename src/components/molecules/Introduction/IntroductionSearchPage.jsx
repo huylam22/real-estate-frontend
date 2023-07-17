@@ -1,10 +1,10 @@
 import React from "react";
-import Header from "./Header";
 
 const IntroductionSearchPage = (props) => {
   function handleInputChange(event) {
     const value = event.target.value;
     props.onInputChange(value);
+    console.log(value);
   }
 
   return (

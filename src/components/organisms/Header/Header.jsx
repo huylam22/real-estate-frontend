@@ -10,10 +10,12 @@ import {
   Card,
 } from "@material-tailwind/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import Modal from "../../modal/Modal";
+import Login from "../../molecules/LoginForm/Login";
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
-
+  const [openModal, setOpenModal] = React.useState(false);
+  const [showPassword, setShowPassword] = React.useState(false);
   React.useEffect(() => {
     window.addEventListener(
       "resize",
@@ -33,7 +35,7 @@ const Header = () => {
           <img
             src="/logo-bright.png"
             alt=""
-            className="w-[250px] h-[250px] absolute top-0 right-0  lg:top-[-85px] lg:left-[-30px]"
+            className="w-[250px] h-[100px] absolute object-cover top-0 right-0  lg:top-[-10px] lg:left-[-30px]"
           />
         </NavLink>
       </Typography>
@@ -73,12 +75,12 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-medium text-lg"
       >
-        <Button
-          variant="outlined"
-          className="px-5 py-1 text-lg font-medium flex items-center"
+        <NavLink
+          className="px-5 py-1 text-lg font-medium flex items-center border border-white hover:bg-white hover:text-secondary rounded-lg transition-all"
+          onClick={() => setOpenModal(true)}
         >
-          Login
-        </Button>
+          Đăng nhập
+        </NavLink>
       </Typography>
 
       <Typography
@@ -87,12 +89,12 @@ const Header = () => {
         color="blue-gray"
         className="p-1 font-medium text-lg"
       >
-        <Button
-          variant="outlined"
-          className="px-5 py-1 text-lg font-medium hover:bg-white hover:text-secondary flex items-center"
+        <NavLink
+          className="px-5 py-1 text-lg font-medium hover:bg-white hover:text-secondary flex items-center  border border-white rounded-lg transition-all"
+          to="/property-post"
         >
-          Signup
-        </Button>
+          Ký gửi nhà đất
+        </NavLink>
       </Typography>
     </ul>
   );
@@ -134,7 +136,16 @@ const Header = () => {
 
   return (
     <>
-      <Navbar className="fixed lg:sticky inset-0 z-10 h-max max-w-full lg:px-8 lg:py-4 bg-black outline-none rounded-none border border-none backdrop-blur-xl">
+      <Modal
+        visible={openModal}
+        onClose={() => {
+          setOpenModal(false);
+        }}
+        bodyClassName={`lg:w-full max-w-[450px] bg-white py-10 px-12 rounded-lg`}
+      >
+        <Login></Login>
+      </Modal>
+      <Navbar className="fixed lg:sticky inset-0 z-10 h-max max-w-full lg:px-8 lg:py-4 bg-black outline-none rounded-none border border-none backdrop-blur-lg bg-opacity-80">
         <div className="flex items-center justify-between text-white lg:text-white">
           <div className="flex items-center justify-between gap-4">
             <IconButton
@@ -186,19 +197,25 @@ const Header = () => {
         </div>
         <MobileNav open={openNav}>
           {navListMobile}
+
           <Button
             variant="gradient"
             className="mb-2 border border-white text-white"
             fullWidth
+            onClick={() => setOpenModal(true)}
           >
-            Login
+            Đăng nhập
           </Button>
+
           <Button
             variant="gradient"
-            className="mb-2 border border-white text-white"
+            className="mb-2 border border-white text-white "
             fullWidth
+            onClick={() => {
+              window.location.href = "/property-post";
+            }}
           >
-            Sign up
+            Ký gửi nhà đất
           </Button>
         </MobileNav>
       </Navbar>

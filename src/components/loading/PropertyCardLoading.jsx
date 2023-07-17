@@ -1,48 +1,12 @@
-import axios from "axios";
-import React, { useEffect } from "react";
-import { getProperties } from "../../api/getProperty";
-import { fetcher } from "../../config/config";
-import useSWR from "swr";
-import PropertyCard from "./PropertyCard";
-import LoadingSkeleton from "../loading/LoadingSkeleton";
+import React from "react";
+import LoadingSkeleton from "./LoadingSkeleton";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBed,
   faBathtub,
   faHouseChimney,
-  faB,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { propertyAPI } from "../../api/propertyAPI";
-
-const PropertyList = () => {
-  const { data, error, isLoading } = useSWR(
-    propertyAPI.getProperties(),
-    fetcher
-  );
-
-  console.log(data);
-  return (
-    <section className="page-container">
-      <h1 className="">Hiển thị 5 trong số 5</h1>
-      {isLoading && (
-        <div className="grid grid-cols-4 gap-10">
-          <PropertyItemLoading></PropertyItemLoading>
-          <PropertyItemLoading></PropertyItemLoading>
-          <PropertyItemLoading></PropertyItemLoading>
-          <PropertyItemLoading></PropertyItemLoading>
-        </div>
-      )}
-      <div className="flex flex-col gap-2 lg:grid lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
-        {data?.length > 0 &&
-          data.map((item) => (
-            <PropertyCard key={item.id} item={item}></PropertyCard>
-          ))}
-      </div>
-    </section>
-  );
-};
-
-const PropertyItemLoading = () => {
+const PropertyCardLoading = () => {
   return (
     <div className="bg-white p-3 rounded-xl shadow-sm flex flex-col">
       <div className="w-full h-[250px] object-cover rounded-lg shadow-sm hover:shadow-neutral-300  transition-all  mb-5">
@@ -81,4 +45,5 @@ const PropertyItemLoading = () => {
     </div>
   );
 };
-export default PropertyList;
+
+export default PropertyCardLoading;
