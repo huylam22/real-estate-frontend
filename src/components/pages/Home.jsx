@@ -1,6 +1,6 @@
 import React from "react";
-import Introduction from "../molecules/Introduction/Introduction";
-import OurStory from "../molecules/Introduction/OurStory";
+import Introduction from "../organisms/Introduction/Introduction";
+import OurStory from "../organisms/Introduction/OurStory";
 
 const Home = () => {
   return (

@@ -41,7 +41,7 @@
 
   .page-small-container {
     @apply mx-auto;
-    max-width: 800px;
+    max-width: 1000px;
   }
   .page-container-fluid {
     width: 100%;

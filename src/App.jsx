@@ -21,12 +21,7 @@ function App() {
         <Route path="/properties" element={<Properties></Properties>}></Route>
         <Route
           path="/properties/:propertyId"
-          element={
-            <PropertyDetail
-            // showHeader={showHeader}
-            // setShowHeader={setShowHeader}
-            ></PropertyDetail>
-          }
+          element={<PropertyDetail></PropertyDetail>}
         ></Route>
         <Route path="/signup" element={<Home></Home>}></Route>
         {/* <Route path="/login" element={<Login></Login>}></Route> */}

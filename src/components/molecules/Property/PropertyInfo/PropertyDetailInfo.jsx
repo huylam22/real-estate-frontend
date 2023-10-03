@@ -27,7 +27,7 @@ const PropertyDetailInfo = () => {
   useEffect(() => {
     if (data) {
       setTimeout(() => {
-        setLoading(false);
+        setLoading((loading) => !loading);
       }, 200);
     }
     console.log(data);
@@ -55,7 +55,7 @@ const PropertyDetailInfo = () => {
 
   return (
     <>
-      <div className="mb-10">
+      <div className="lg:min-w-[650px] lg:max-w-[700px] mb-10">
         <div className="flex flex-col gap-y-3">
           {loading && <PropertyDetailLoading></PropertyDetailLoading>}
           <span className="text-secondary text-xl opacity-70">

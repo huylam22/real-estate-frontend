@@ -1,36 +1,49 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Button } from "@material-tailwind/react";
-const Login = () => {
+// import { Button, Input } from "@material-tailwind/react";
+import { useNavigate } from "react-router-dom";
+import AppleIcon from "../../atoms/AppleIcon";
+import GoogleIcon from "../../atoms/GoogleIcon";
+import GithubIcon from "../../atoms/GithubIcon";
+
+const Login = React.forwardRef(({ closeModal = () => {} }, ref) => {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errMsg, setErrMsg] = useState("");
+  const navigate = useNavigate();
   const errRef = useRef();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const credentials = { email: email, password: password };
     try {
       const response = await axios.post(
-        "https://average-needle-production.up.railway.app/api/v1/auth/authenticate",
+        "https://real-estate-server-update-production.up.railway.app/api/v1/auth/authenticate",
         credentials
       );
       const { data } = response;
       console.log(data);
       setErrMsg("");
-      // window.location.href = "/properties";
+      closeModal(); // Call the function from props to close the modal
+      navigate("/properties");
     } catch (err) {
-      if (!err?.originalStatus) {
+      console.log(err.response.status);
+      if (!err?.response) {
         // isLoading: true until timeout occurs
-        setErrMsg("No Server Response");
-      } else if (err.originalStatus === 400) {
+        setErrMsg("Something went wrong");
+      } else if (err.response.status === 400) {
         setErrMsg("Missing Username or Password");
-      } else if (err.originalStatus === 401) {
+      } else if (err.response.status === 401) {
         setErrMsg("Unauthorized");
+      } else if (err.response.status === 403) {
+        setErrMsg("Incorrect Username or Password");
       } else {
         setErrMsg("Login Failed");
       }
-      errRef.current.focus();
+      if (errRef.current) {
+        errRef.current.focus();
+      }
     }
   };
 
@@ -38,7 +51,7 @@ const Login = () => {
     setEmail(e.target.value);
   };
 
-  const handlePwdInput = (e) => {
+  const handlePasswordInput = (e) => {
     setPassword(e.target.value);
   };
   return (
@@ -51,6 +64,7 @@ const Login = () => {
         ) : (
           ""
         )}
+
         <img
           src="/logo-bright.png"
           alt=""
@@ -62,14 +76,29 @@ const Login = () => {
         <p className="text-center mb-3 font-light text-gray-500 tracking-wide">
           Please enter your details to sign in.
         </p>
-        <div className="flex justify-between">
-          <Button>apple</Button>
-          <Button>google</Button>
-          <Button>github</Button>
+        <div className="flex justify-between gap-3 text-black">
+          <button
+            type="button"
+            className="text-white w-full justify-center bg-[#24292F] hover:bg-[#24292F]/90 focus:ring-4 focus:ring-[#24292F]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-gray-500 dark:hover:bg-[#050708]/30"
+          >
+            <AppleIcon></AppleIcon>
+          </button>
+          <button
+            type="button"
+            className="text-white w-full justify-center bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:ring-[#4285F4]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55"
+          >
+            <GoogleIcon></GoogleIcon>
+          </button>
+          <button
+            type="button"
+            className="text-white w-full justify-center bg-[#050708] hover:bg-[#050708]/90 focus:ring-4 focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#050708]/50 dark:hover:bg-[#050708]/30"
+          >
+            <GithubIcon></GithubIcon>
+          </button>
         </div>
-        <div class="inline-flex items-center justify-center w-full">
-          <hr class="w-full h-px my-8 bg-gray-200 border-0"></hr>
-          <span class="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">
+        <div className="inline-flex items-center justify-center w-full">
+          <hr className="w-full h-px my-4 bg-gray-200 border-0"></hr>
+          <span className="absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2">
             or
           </span>
         </div>
@@ -77,6 +106,7 @@ const Login = () => {
           Email address
         </label>
         <input
+          ref={ref}
           type="email"
           id="email"
           placeholder="Enter your email"
@@ -94,7 +124,7 @@ const Login = () => {
             id="password"
             placeholder="Enter your password"
             className="w-full p-4 bg-[#E7ECF3] text-sm leading-normal border border-gray-300 rounded-lg transition-all"
-            onChange={handlePwdInput}
+            onChange={handlePasswordInput}
           />
           <svg
             width="21"
@@ -122,6 +152,6 @@ const Login = () => {
       </button>
     </>
   );
-};
+});
 
 export default Login;

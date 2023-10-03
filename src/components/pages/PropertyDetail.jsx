@@ -21,7 +21,7 @@ const PropertyDetailPage = () =>
       <>
         <PropertyImageSwipe></PropertyImageSwipe>
 
-        <section className="page-container lg:p-0 p-5">
+        <section className="page-small-container lg:p-0 p-5">
           <div className="lg:flex justify-center gap-10">
             <PropertyDetailInfo></PropertyDetailInfo>
             <div

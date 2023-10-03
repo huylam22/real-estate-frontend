@@ -1,6 +1,6 @@
 import axios from "axios";
 import React from "react";
-import IntroductionSearchPage from "../molecules/Introduction/IntroductionSearchPage";
+import IntroductionSearchPage from "../organisms/Introduction/IntroductionSearchPage";
 import PropertyList from "../organisms/PropertyList/PropertyList";
 
 const PropertiesPage = () => {

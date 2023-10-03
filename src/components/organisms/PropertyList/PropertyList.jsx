@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 // import { getProperties } from "../../api/getProperty";
 import { fetcher } from "../../../config/config";
 import useSWR from "swr";
@@ -11,7 +11,8 @@ const PropertyList = () => {
     propertyAPI.getProperties(),
     fetcher
   );
-
+  const properties = data?.content;
+  console.log(data);
   return (
     <section className="page-container">
       <h1 className="">Hiển thị 5 trong số 5</h1>
@@ -24,8 +25,8 @@ const PropertyList = () => {
       )}
 
       <div className="flex flex-col gap-2 lg:grid lg:grid-cols-4 lg:gap-x-4 lg:gap-y-6">
-        {data?.length > 0 &&
-          data.map((item) => (
+        {properties?.length > 0 &&
+          properties.map((item) => (
             <PropertyCard key={item.id} item={item}></PropertyCard>
           ))}
       </div>
